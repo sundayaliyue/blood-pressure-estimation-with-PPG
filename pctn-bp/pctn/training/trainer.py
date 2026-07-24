@@ -62,6 +62,8 @@ class Trainer:
                 pred = self.model(x)
                 loss = self.criterion(pred, y)
                 loss.backward()
+                # 加梯度裁剪
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(),max_norm=1.0)
                 self.optimizer.step()
             else:
                 with torch.no_grad():
