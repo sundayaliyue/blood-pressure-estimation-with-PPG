@@ -17,7 +17,7 @@ from .metrics import check_aami, compute_bp_metrics
 @dataclass
 class TrainState:
     epoch: int = 0
-    best_val_loss: float = float("inf")
+    best_val_loss: float = float("inf") # 先赋值正无穷大
 
 
 class Trainer:
@@ -103,13 +103,7 @@ class Trainer:
             test_loss, test_metrics = self._run_epoch(self.test_loader, train=False)
             self._print_metrics("test", test_loss, test_metrics, final=True)
 
-    def _print_metrics(
-        self,
-        split: str,
-        loss: float,
-        metrics: dict[str, float],
-        final: bool = False,
-    ) -> None:
+    def _print_metrics(self, split: str, loss: float, metrics: dict[str, float],final: bool = False,) -> None:
         me_th = self.eval_cfg.get("aami_me_threshold", 5.0)
         std_th = self.eval_cfg.get("aami_std_threshold", 8.0)
         aami = check_aami(metrics, me_th, std_th)
@@ -131,8 +125,8 @@ class Trainer:
             {
                 "epoch": self.state.epoch,
                 "best_val_loss": self.state.best_val_loss,
-                "model_state_dict": self.model.state_dict(),
-                "optimizer_state_dict": self.optimizer.state_dict(),
+                "model_state_dict": self.model.state_dict(), # 模型的所有参数权重
+                "optimizer_state_dict": self.optimizer.state_dict(), #优化器的状态
             },
             path,
         )

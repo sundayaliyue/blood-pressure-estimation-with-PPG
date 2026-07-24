@@ -17,7 +17,7 @@ class TransformerBranch(nn.Module):
         )
         self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
         self.downsample = nn.Conv1d(64,512,kernel_size=8,stride=8,padding=4) # 下采样和CNN分支提取的特征维度一样，要基于CNN分支得到的尺寸设计
-        self.out_channels = in_channels
+        self.out_channels = 512
 
     def forward(self, x):
         # (B, C, L) -> (B, L, C) -> encoder -> (B, C, L)

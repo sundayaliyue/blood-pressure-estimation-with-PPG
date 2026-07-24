@@ -10,8 +10,8 @@ data:
   test_ratio: 0.25
   num_workers: 4
   batch_size: 64
-  h5_path: ../data_preprocessing/ppg_rawdata/MIMIC-III_ppg_dataset.h5
-  split_dir: ../data_preprocessing/splits
+  h5_path: /home/zhanglanli1/code/learning/projects/data_preprocessing/ppg_rawdata/MIMIC-III_ppg_dataset.h5
+  split_dir: /home/zhanglanli1/code/learning/projects/data_preprocessing/splits
 
 model:
   stem:
@@ -36,7 +36,7 @@ model:
 training:
   batch_size: 64
   epochs: 100
-  lr: 0.01
+  lr: 0.0001
   weight_decay: 0.0
   seed: 42
   device: cuda
