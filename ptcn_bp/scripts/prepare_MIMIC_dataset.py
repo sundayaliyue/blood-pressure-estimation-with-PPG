@@ -12,11 +12,11 @@ Date created: 8/5/2021
 Date last modified: 8/5/2021
 """
 
-from os.path import join, expanduser, isfile, splitext
+from os.path import join, isfile, splitext
 from os import listdir, scandir
 from random import shuffle
-from sys import argv
 import datetime
+from pctn.utils.config import load_data_config
 
 import h5py
 import numpy as np
@@ -279,14 +279,15 @@ def prepare_MIMIC_dataset(DataPath, OutputFile, NsampPerSubMax:int=None, NsampMa
 
 if __name__ == "__main__":
     np.random.seed(seed=42)
-
-    DataPath = "/home/zhanglanli1/code/learning/projects/data_preprocessing/ppg_rawdata"
-    OutputFile = "/home/zhanglanli1/code/learning/projects/data_preprocessing/MIMIC-III_ppg_dataset.h5"
-    win_len = 7
-    win_overlap = 0.5 #窗口重叠比例
-    NsampPerSubMax = None #限制每个患者最多保留多少个样本
-    NsampMax = None #限制整个数据集最大样本数量
-    savePPGData = True
+    cfg = load_data_config()
+    DataPath = cfg["raw_dir"]
+    OutputFile = cfg["processed_h5"]
+    prep = cfg["prepare"]
+    win_len = prep["win_len"]
+    win_overlap = prep["win_overlap"], #窗口重叠比例
+    NsampPerSubMax = prep.get("nsamp_per_sub_max") #限制每个患者最多保留多少个样本
+    NsampMax = prep.get("nsamp_max") #限制整个数据集最大样本数量
+    savePPGData = prep["save_ppg_data"]
 
     prepare_MIMIC_dataset(DataPath, OutputFile, NsampPerSubMax=NsampPerSubMax, NsampMax=NsampMax,
                           savePPGData=savePPGData, win_len=win_len, win_overlap=win_overlap)

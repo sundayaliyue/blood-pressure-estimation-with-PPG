@@ -14,9 +14,10 @@ Date created: 8/4/2021
 Date last modified: 8/4/2021
 """
 
-from os.path import expanduser, join, isdir
+from os.path import join, isdir
 from os import mkdir
-from sys import argv
+from os import makedirs
+from pctn.utils.config import load_data_config
 from itertools import compress
 import datetime
 #import warnings
@@ -106,11 +107,14 @@ def download_mimic_iii_records(RecordsFile, OutputPath):
             f.create_dataset('nA2', (1,len(ppg_pks)), data=ppg_pks)
             f.create_dataset('nB3', (1,len(abp_dia_pks)), data=abp_dia_pks)
             f.create_dataset('nA3', (1,len(abp_sys_pks)), data=abp_sys_pks)
+            # 把 .h5 文件理解成一个“文件夹”，里面可以放多个“数组文件”。也可以类似一个Excel里面创建多个sheet
     
     print('script finished')
 
 if __name__ == '__main__':
-    RecordsFile = "MIMIC-III_ppg_dataset_records.txt"
-    OutputPath = "ppg_rawdata"
-    download_mimic_iii_records(RecordsFile, OutputPath)
+    cfg = load_data_config()
+    makedirs(cfg["raw_dir"], exist_ok=True)
+    # RecordsFile = "data/MIMIC-III_ppg_dataset_records.txt"
+    # OutputPath = "data/raw"
+    download_mimic_iii_records(cfg["records_file"], cfg["raw_dir"])
     

@@ -13,6 +13,7 @@ import json
 from datetime import datetime
 from os import makedirs
 from os.path import isdir, join
+from pctn.utils.config import load_data_config
 
 import h5py
 import numpy as np
@@ -154,8 +155,11 @@ def split_h5_for_pytorch(
 
 
 if __name__ == "__main__":
-    SourceFile = "/home/zhanglanli1/code/learning/projects/data_preprocessing/ppg_rawdata/MIMIC-III_ppg_dataset.h5"
-    OutputDir = "/home/zhanglanli1/code/learning/projects/data_preprocessing"
+    cfg = load_data_config()
+    SourceFile = cfg["processed_h5"]
+    OutputDir  = cfg["split_dir"]
+    # SourceFile = "/home/zhanglanli1/code/learning/projects/data_preprocessing/ppg_rawdata/MIMIC-III_ppg_dataset.h5"
+    # OutputDir = "/home/zhanglanli1/code/learning/projects/data_preprocessing"
     train_ratio = 0.65
     val_ratio = 0.10
     test_ratio = 0.25
