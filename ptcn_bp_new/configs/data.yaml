@@ -1,0 +1,24 @@
+# MIMIC-III data pipeline config
+raw_dir: data/raw
+processed_h5: data/processed/MIMIC-III_ppg_dataset.h5
+split_dir: data/splits
+records_file: data/MIMIC-III_ppg_dataset_records.txt
+
+prepare:
+  win_len: 7
+  win_overlap: 0.5
+  save_ppg_data: true
+  nsamp_per_sub_max: null
+  nsamp_max: null
+  seed: 42
+
+split:
+  train_ratio: 0.65
+  val_ratio: 0.10
+  test_ratio: 0.25
+  divide_by_subject: true
+  seed: 42
+  max_train: null
+  max_val: null
+  max_test: null
+  export_csv: true
