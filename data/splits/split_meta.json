@@ -1,0 +1,20 @@
+{
+  "source_file": "/home/zhanglanli1/code/learning/projects/data_preprocessing/ppg_rawdata/MIMIC-III_ppg_dataset.h5",
+  "divide_by_subject": true,
+  "seed": 42,
+  "train_ratio": 0.65,
+  "val_ratio": 0.1,
+  "test_ratio": 0.25,
+  "max_train": null,
+  "max_val": null,
+  "max_test": null,
+  "n_samples_total": 9054000,
+  "n_subjects_total": 4527,
+  "n_subjects_train": 2942,
+  "n_subjects_val": 452,
+  "n_subjects_test": 1133,
+  "n_samples_train": 5884000,
+  "n_samples_val": 904000,
+  "n_samples_test": 2266000,
+  "created_at": "2026-07-22T14:54:10"
+}
