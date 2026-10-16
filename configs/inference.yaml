@@ -1,0 +1,48 @@
+# Inference config (model section mirrors configs/default.yaml)
+
+data:
+  segment_length: 875
+  num_workers: 4
+  batch_size: 64
+  h5_path: data/processed/MIMIC-III_ppg_dataset.h5
+  split_dir: data/splits
+
+model:
+  stem:
+    in_channels: 1
+    out_channels: 64
+    kernel_size: 15
+    stride: 2
+    padding: 7
+  cnn:
+    layers: [3, 4, 6, 3]
+    channels: [64, 128, 256, 512]
+  transformer:
+    in_channels: 64
+    num_layers: 6
+    num_heads: 4
+    mlp_ratio: 4
+    dropout: 0.1
+  regressor:
+    hidden_dim: 128
+    output_dim: 2
+
+preprocessing:
+  target_fs: 125
+  segment_length: 875
+  filter_order: 4
+  filter_band: [0.5, 8.0]
+  win_overlap: 0.5
+
+inference:
+  checkpoint: outputs/checkpoints/best.pt
+  device: cuda
+  aggregate: median
+
+serve:
+  host: 0.0.0.0
+  port: 8000
+
+evaluation:
+  aami_me_threshold: 5.0
+  aami_std_threshold: 8.0

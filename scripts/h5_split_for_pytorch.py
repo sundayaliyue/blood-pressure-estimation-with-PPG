@@ -75,9 +75,7 @@ def split_h5_for_pytorch(
     if not isdir(output_dir):
         makedirs(output_dir)
 
-    split_dir = join(output_dir, "splits")
-    if not isdir(split_dir):
-        makedirs(split_dir)
+    split_dir = output_dir
 
     with h5py.File(source_file, "r") as f:
         labels = np.array(f["label"])
@@ -165,9 +163,9 @@ if __name__ == "__main__":
     test_ratio = 0.25
     divide_by_subject = True  # True=按患者划分, False=按样本随机划分
     seed = 42
-    max_train = None  # 限制训练集最大样本数，None 表示不限制
-    max_val = None
-    max_test = None
+    max_train = cfg["split"]["max_train"] # 限制训练集最大样本数，None 表示不限制
+    max_val = cfg["split"]["max_val"] 
+    max_test = cfg["split"]["max_test"]
 
     np.random.seed(seed=seed)
 

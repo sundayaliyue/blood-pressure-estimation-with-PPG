@@ -18,7 +18,7 @@ split:
   test_ratio: 0.25
   divide_by_subject: true
   seed: 42
-  max_train: null
-  max_val: null
-  max_test: null
+  max_train: 50000
+  max_val: 5000
+  max_test: 5000
   export_csv: true
